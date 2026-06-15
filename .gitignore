@@ -1,0 +1,22 @@
+# OS files
+.DS_Store
+
+# IDE
+.idea/
+
+# Python cache
+__pycache__/
+
+# Model training artifacts
+**/model/
+
+# Common model file formats
+*.bin
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.onnx
+*.pkl
+*.joblib
+*.sav
