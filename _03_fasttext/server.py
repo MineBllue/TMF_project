@@ -11,12 +11,11 @@ from collections import deque
 from pathlib import Path
 from typing import Optional
 
-import joblib
 import jieba
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+import fasttext
 
 from config import Config
 
@@ -28,13 +27,13 @@ STATIC_DIR.mkdir(exist_ok=True)
 MAX_HISTORY = 200  # 最多保留的历史记录数
 
 # ── 加载模型 ──────────────────────────────────────────
-tfidf = joblib.load(config.tfidf_save_path)
-model = joblib.load(config.rf_save_model_path)
+model = fasttext.load_model(config.fasttext_word_auto_model_path)
 
 # ── 加载类别映射 ──────────────────────────────────────
 with open(config.class_path, "r", encoding="utf-8") as f:
     _classes = [line.strip() for line in f if line.strip()]
 id2class: dict[int, str] = {i: name for i, name in enumerate(_classes)}
+class2id: dict[str, int] = {name: i for i, name in enumerate(_classes)}
 CLASS_NAMES: list[str] = _classes
 
 # ── FastAPI 应用 ──────────────────────────────────────
@@ -68,20 +67,24 @@ _history: deque[PredictResult] = deque(maxlen=MAX_HISTORY)
 
 def predict_fun(text: str) -> tuple[str, int, float, dict[str, float]]:
     """对输入文本进行分类预测，返回 (类别名, 类别ID, 置信度, 所有类别概率)。"""
+    # fasttext 输入：分词后用空格连接
     words = " ".join(jieba.lcut(text))
-    x_vec = tfidf.transform([words])
 
-    # 类别预测
-    y_idx = int(model.predict(x_vec)[0])
-    y_name = id2class.get(y_idx, "unknown")
+    # fasttext predict 返回 (labels, probs)，labels 格式为 __label__类别名
+    k = len(CLASS_NAMES)
+    labels, probs = model.predict(words, k=k)
 
-    # 概率预测
-    proba = model.predict_proba(x_vec)[0]
-    confidence = float(proba[y_idx])
-    probabilities = {
-        id2class.get(i, f"class_{i}"): round(float(p), 4)
-        for i, p in enumerate(proba)
-    }
+    # 解析 top-1 结果（label 格式为 __label__类别名）
+    top_label: str = labels[0]
+    y_name = top_label.replace("__label__", "")
+    y_idx = class2id.get(y_name, -1)
+    confidence = float(probs[0])
+
+    # 构建所有类别概率字典
+    probabilities: dict[str, float] = {}
+    for label, prob in zip(labels, probs):
+        cls_name = label.replace("__label__", "")
+        probabilities[cls_name] = round(float(prob), 4)
 
     return y_name, y_idx, confidence, probabilities
 

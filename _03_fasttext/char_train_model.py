@@ -12,8 +12,8 @@ print('===' * 10)
 # model = fasttext.load_model(config.fasttext_char_default_model_path)
 result = model.test(config.process_test_path_chars)
 # 打印结果 数据个数，精确率，召回率
-print('模型评估结果是', result)
+print('模型评估结果是', result) # (10000, 0.8744, 0.8744)
 print('===' * 10)
 # 模型预测
 label = model.predict('去 新 西 兰 体 验 舌 尖 上 的 饕 餮 之 旅 ( 组 图 )')
-print('模型预测结果是', label)
+print('模型预测结果是', label) #  (('__label__realty',), array([0.54643071]))
