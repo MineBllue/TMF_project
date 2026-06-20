@@ -10,7 +10,12 @@ __pycache__/
 # Model training artifacts
 **/model/
 
+# HuggingFace / transformers model directories
+**/bert-base-chinese/
+**/hfl/
+
 # Common model file formats
+*.msgpack
 *.bin
 *.pt
 *.pth
