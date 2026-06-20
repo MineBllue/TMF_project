@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新闻分类预测 - DeepSeek</title>
+<style>
+  /* ── CSS Variables ─────────────────────────── */
+  :root {
+    --bg: oklch(0.975 0.003 260);
+    --surface: oklch(1 0 0);
+    --surface2: oklch(0.965 0.005 260);
+    --ink: oklch(0.18 0.012 265);
+    --ink-muted: oklch(0.48 0.015 265);
+    --ink-subtle: oklch(0.65 0.012 265);
+    --accent: oklch(0.48 0.18 265);
+    --accent-hover: oklch(0.43 0.19 265);
+    --accent-subtle: oklch(0.92 0.03 265);
+    --border: oklch(0.88 0.006 265);
+    --border-light: oklch(0.94 0.004 265);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.06);
+    --shadow: 0 1px 3px oklch(0 0 0 / 0.08), 0 4px 16px oklch(0 0 0 / 0.04);
+    --shadow-lg: 0 4px 6px oklch(0 0 0 / 0.05), 0 10px 32px oklch(0 0 0 / 0.06);
+    --font: "Inter", "SF Pro Display", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Fira Code", monospace;
+    --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Reset ─────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ────────────────────────────────── */
+  .app {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── Header ────────────────────────────────── */
+  .header {
+    text-align: center;
+    padding: 32px 0 40px;
+  }
+
+  .header-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px; height: 48px;
+    background: var(--accent-subtle);
+    border-radius: 14px;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  .header p {
+    margin-top: 6px;
+    font-size: 0.925rem;
+    color: var(--ink-muted);
+    text-wrap: balance;
+  }
+
+  .header .model-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: oklch(0.45 0.14 295);
+    background: oklch(0.89 0.04 295);
+    border-radius: 100px;
+  }
+
+  /* ── Section titles ────────────────────────── */
+  .section-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-subtle);
+    margin-bottom: 12px;
+  }
+
+  /* ── Input Card ────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition), border-color var(--transition);
+  }
+
+  .card:focus-within {
+    border-color: var(--accent);
+    box-shadow: var(--shadow), 0 0 0 3px oklch(0.48 0.18 265 / 0.1);
+    outline: none;
+  }
+
+  .input-group { position: relative; }
+
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 14px 16px;
+    font-family: var(--font);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--surface2);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    resize: vertical;
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  textarea::placeholder { color: var(--ink-subtle); }
+
+  textarea:hover { border-color: oklch(0.78 0.01 265); }
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--surface);
+  }
+
+  .input-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+
+  .char-count {
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--ink-subtle);
+  }
+
+  .char-count.warn { color: oklch(0.5 0.18 30); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #fff;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--transition), transform 80ms ease, box-shadow var(--transition);
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.12);
+  }
+
+  .btn:hover { background: var(--accent-hover); }
+  .btn:active { transform: scale(0.985); }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn .spinner {
+    display: none;
+    width: 16px; height: 16px;
+    border: 2px solid oklch(1 0 0 / 0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  .btn.loading .spinner { display: block; }
+  .btn.loading .btn-label { display: none; }
+
+  .kbd-hint {
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .kbd-hint kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px; height: 20px;
+    padding: 0 5px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  /* ── Result ─────────────────────────────────── */
+  .result-section { margin-top: 32px; }
+
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    animation: slideUp 280ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .result-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 100px;
+    letter-spacing: 0.01em;
+  }
+
+  .badge.finance      { background: oklch(0.88 0.04 250); color: oklch(0.4 0.14 255); }
+  .badge.realty       { background: oklch(0.9 0.03 45);  color: oklch(0.45 0.12 45); }
+  .badge.stocks       { background: oklch(0.89 0.04 195); color: oklch(0.4 0.13 200); }
+  .badge.education    { background: oklch(0.89 0.04 295); color: oklch(0.42 0.14 295); }
+  .badge.science      { background: oklch(0.88 0.04 210); color: oklch(0.4 0.14 215); }
+  .badge.society      { background: oklch(0.9 0.04 70);  color: oklch(0.48 0.14 75); }
+  .badge.politics     { background: oklch(0.89 0.04 20);  color: oklch(0.43 0.16 25); }
+  .badge.sports       { background: oklch(0.88 0.05 145); color: oklch(0.4 0.15 150); }
+  .badge.game         { background: oklch(0.89 0.04 335); color: oklch(0.42 0.15 340); }
+  .badge.entertainment{ background: oklch(0.89 0.05 85);  color: oklch(0.45 0.15 88); }
+
+  .result-body { padding: 24px; }
+
+  .result-text {
+    font-size: 0.9375rem;
+    color: var(--ink);
+    line-height: 1.7;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    margin-bottom: 16px;
+    word-break: break-word;
+  }
+
+  .result-text-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  /* ── Reasoning ──────────────────────────────── */
+  .reasoning-block {
+    margin-top: 16px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .reasoning-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 16px;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    background: var(--surface2);
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+
+  .reasoning-toggle:hover { background: oklch(0.95 0.005 260); }
+
+  .reasoning-toggle .arrow {
+    transition: transform var(--transition);
+    font-size: 0.75rem;
+  }
+
+  .reasoning-toggle.open .arrow {
+    transform: rotate(180deg);
+  }
+
+  .reasoning-content {
+    display: none;
+    padding: 16px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--ink-muted);
+    background: var(--surface);
+    border-top: 1px solid var(--border-light);
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+
+  .reasoning-content.open { display: block; }
+
+  .result-meta {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.8rem;
+    color: var(--ink-subtle);
+  }
+
+  .result-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+  }
+
+  /* ── History ────────────────────────────────── */
+  .history-section { margin-top: 48px; }
+
+  .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .history-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font-family: var(--font);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .btn-ghost:hover {
+    color: var(--ink);
+    border-color: oklch(0.72 0.015 265);
+  }
+
+  .btn-ghost.danger:hover {
+    color: oklch(0.42 0.18 30);
+    border-color: oklch(0.7 0.08 30);
+  }
+
+  .history-table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .history-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-subtle);
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .history-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: middle;
+  }
+
+  .history-table tr:last-child td { border-bottom: none; }
+
+  .history-table tr {
+    transition: background var(--transition);
+  }
+
+  .history-table tbody tr:hover { background: var(--surface2); }
+
+  .history-table .text-col {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--ink-muted);
+  }
+
+  .history-table .time-col {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink-subtle);
+    white-space: nowrap;
+  }
+
+  .history-table .badge { font-size: 0.75rem; padding: 3px 10px; }
+
+  .history-table .cost-col {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink-subtle);
+  }
+
+  .empty-history {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--ink-subtle);
+  }
+
+  .empty-history .icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    opacity: 0.5;
+  }
+
+  /* ── Toast ──────────────────────────────────── */
+  .toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .toast {
+    padding: 12px 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #fff;
+    background: oklch(0.25 0.02 265);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    animation: toastIn 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .toast.out {
+    animation: toastOut 180ms cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  }
+
+  @keyframes toastIn  { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes toastOut { to   { opacity: 0; transform: translateX(20px); } }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Responsive ─────────────────────────────── */
+  @media (max-width: 600px) {
+    .app { padding: 20px 16px 60px; }
+    .card { padding: 16px; }
+    .result-body { padding: 16px; }
+    .result-header { padding: 14px 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .header { padding: 20px 0 28px; }
+    .result-meta { flex-wrap: wrap; gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .result-card { animation: none; }
+    .toast { animation: none; }
+  }
+
+  /* ── Search ─────────────────────────────────── */
+  .search-input {
+    width: 100%;
+    padding: 8px 12px;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    transition: border-color var(--transition);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .search-input::placeholder { color: var(--ink-subtle); }
+
+  /* ── Loading pulse for result ───────────────── */
+  .result-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 40px;
+    color: var(--ink-subtle);
+    font-size: 0.9rem;
+  }
+
+  .pulse-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+
+  .pulse-dot:nth-child(2) { animation-delay: 0.15s; }
+  .pulse-dot:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes pulse {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-icon">📰</div>
+    <h1>新闻分类预测</h1>
+    <p>基于 DeepSeek 大模型智能分析，精准识别新闻标题所属类别</p>
+    <span class="model-badge">🧠 DeepSeek V4</span>
+  </header>
+
+  <!-- Input -->
+  <section>
+    <h2 class="section-title">输入新闻标题</h2>
+    <div class="card">
+      <div class="input-group">
+        <textarea
+          id="textInput"
+          placeholder="在此粘贴或输入新闻标题，AI 将自动分类…"
+          maxlength="5000"
+          autofocus
+        ></textarea>
+      </div>
+      <div class="input-meta">
+        <span class="char-count" id="charCount">0 / 5000</span>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="kbd-hint">
+            <kbd id="kbdKey">⌘</kbd> + <kbd>⏎</kbd>
+          </span>
+          <button class="btn" id="predictBtn" onclick="doPredict()">
+            <span class="btn-label">开始分类</span>
+            <span class="spinner"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section class="result-section" id="resultSection" style="display:none;">
+    <h2 class="section-title">分类结果</h2>
+    <div id="resultContainer"></div>
+  </section>
+
+  <!-- History -->
+  <section class="history-section" id="historySection">
+    <div class="history-header">
+      <h2 class="section-title" style="margin-bottom:0;">预测历史</h2>
+      <div class="history-actions">
+        <input class="search-input" id="searchInput" type="text" placeholder="按类别筛选…" style="width:160px;margin-bottom:0;" oninput="renderHistory()">
+        <button class="btn-ghost danger" onclick="clearHistory()">清空记录</button>
+      </div>
+    </div>
+    <div class="history-table-wrap" id="historyContainer">
+      <div class="empty-history">
+        <div class="icon">📋</div>
+        <p>暂无预测记录</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ── State ──────────────────────────────────────
+let history = [];
+const MAX_TEXT_LEN = 5000;
+const CATEGORY_EMOJIS = {
+  finance: '💰', realty: '🏠', stocks: '📈', education: '📚', science: '🔬',
+  society: '👥', politics: '🏛️', sports: '⚽', game: '🎮', entertainment: '🎬'
+};
+const CATEGORY_LABELS = {
+  finance: '金融', realty: '房地产', stocks: '股票', education: '教育', science: '科学',
+  society: '社会', politics: '政治', sports: '体育', game: '游戏', entertainment: '娱乐'
+};
+
+// ── Init ───────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const isMac = navigator.platform.toLowerCase().includes('mac');
+  document.getElementById('kbdKey').textContent = isMac ? '⌘' : 'Ctrl';
+
+  const ta = document.getElementById('textInput');
+  ta.addEventListener('input', onTextInput);
+  ta.addEventListener('keydown', onKeydown);
+  onTextInput();
+  fetchHistory();
+});
+
+// ── Text input ─────────────────────────────────
+function onTextInput() {
+  const ta = document.getElementById('textInput');
+  const count = ta.value.length;
+  const cc = document.getElementById('charCount');
+  cc.textContent = `${count} / ${MAX_TEXT_LEN}`;
+  cc.className = count > MAX_TEXT_LEN * 0.9 ? 'char-count warn' : 'char-count';
+}
+
+function onKeydown(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+    e.preventDefault();
+    doPredict();
+  }
+}
+
+// ── Predict ────────────────────────────────────
+async function doPredict() {
+  const ta = document.getElementById('textInput');
+  const text = ta.value.trim();
+  if (!text) {
+    toast('请先输入待分类文本');
+    ta.focus();
+    return;
+  }
+
+  const btn = document.getElementById('predictBtn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  // Show loading state in result
+  const section = document.getElementById('resultSection');
+  section.style.display = 'block';
+  document.getElementById('resultContainer').innerHTML = `
+    <div class="result-card">
+      <div class="result-loading">
+        <span>AI 正在分析中</span>
+        <span class="pulse-dot"></span>
+        <span class="pulse-dot"></span>
+        <span class="pulse-dot"></span>
+      </div>
+    </div>`;
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  try {
+    const res = await fetch('/api/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.detail || '请求失败');
+    }
+
+    const data = await res.json();
+    renderResult(data);
+    history.unshift(data);
+    if (history.length > 200) history.pop();
+    renderHistory();
+    document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (err) {
+    toast(`预测失败: ${err.message}`);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+// ── Render result ──────────────────────────────
+function renderResult(data) {
+  document.getElementById('resultSection').style.display = 'block';
+
+  const emoji = CATEGORY_EMOJIS[data.class_name] || '📌';
+  const label = CATEGORY_LABELS[data.class_name] || data.class_name;
+  const hasReasoning = data.reasoning && data.reasoning.trim().length > 0;
+
+  document.getElementById('resultContainer').innerHTML = `
+    <div class="result-card">
+      <div class="result-header">
+        <span class="result-label">预测类别</span>
+        <span class="badge ${data.class_name}">${emoji} ${label} <span style="font-weight:400;opacity:0.7;">${data.class_name}</span></span>
+      </div>
+      <div class="result-body">
+        <div class="result-text-label">输入内容</div>
+        <div class="result-text">${escapeHtml(data.text)}</div>
+
+        ${hasReasoning ? `
+        <div class="reasoning-block">
+          <button class="reasoning-toggle" onclick="toggleReasoning(this)">
+            <span>💭 AI 推理过程</span>
+            <span class="arrow">▾</span>
+          </button>
+          <div class="reasoning-content">${escapeHtml(data.reasoning)}</div>
+        </div>
+        ` : ''}
+
+        <div class="result-meta">
+          <span>⏱ ${data.cost_ms}ms</span>
+          <span>🕐 ${data.timestamp}</span>
+          <span>🆔 ${data.id}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleReasoning(btn) {
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('open');
+}
+
+// ── History ────────────────────────────────────
+async function fetchHistory() {
+  try {
+    const res = await fetch('/api/history?limit=50');
+    const data = await res.json();
+    history = data.items;
+    renderHistory();
+  } catch { /* silent */ }
+}
+
+function renderHistory() {
+  const q = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const filtered = q
+    ? history.filter(r => r.class_name.toLowerCase().includes(q))
+    : history;
+
+  const container = document.getElementById('historyContainer');
+
+  if (!filtered.length) {
+    container.innerHTML = `
+      <div class="empty-history">
+        <div class="icon">${q ? '🔍' : '📋'}</div>
+        <p>${q ? '没有匹配的记录' : '暂无预测记录'}</p>
+      </div>`;
+    return;
+  }
+
+  const emoji = (name) => CATEGORY_EMOJIS[name] || '📌';
+  const label = (name) => CATEGORY_LABELS[name] || name;
+
+  container.innerHTML = `
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>输入文本</th>
+          <th>分类结果</th>
+          <th>耗时</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filtered.map(r => `
+          <tr>
+            <td class="time-col">${r.timestamp}</td>
+            <td class="text-col" title="${escapeHtml(r.text)}">${escapeHtml(r.text.substring(0, 40))}${r.text.length > 40 ? '…' : ''}</td>
+            <td><span class="badge ${r.class_name}">${emoji(r.class_name)} ${label(r.class_name)}</span></td>
+            <td class="cost-col">${r.cost_ms}ms</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+async function clearHistory() {
+  try {
+    await fetch('/api/history', { method: 'DELETE' });
+    history = [];
+    renderHistory();
+    toast('已清空历史记录');
+  } catch { toast('清空失败'); }
+}
+
+// ── Utilities ──────────────────────────────────
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function toast(msg) {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => {
+    el.classList.add('out');
+    el.addEventListener('animationend', () => el.remove());
+  }, 2400);
+}
+</script>
+
+</body>
+</html>

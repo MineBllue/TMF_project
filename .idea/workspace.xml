@@ -2,16 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86137cba-a18a-474e-bfef-1f5b404fe342" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/auto_char_train_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/auto_words_train_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/char_train_model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/data_process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/ft_predict_fun.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/server.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/static/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_03_fasttext/words_train_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_03_fasttext/summary.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert-base-chinese/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert-base-chinese/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert-base-chinese/flax_model.msgpack" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert-base-chinese/tokenizer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert-base-chinese/tokenizer_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert-base-chinese/vocab.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert_classifier_model-01.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert_classifier_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert_evaluate_while_training-01.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert_evaluate_while_training.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/bert_predict_fun.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/dataloader_utils-01.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/dataloader_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/evaluate_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/summary.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/单独训练和单独评估/bert_evaluate_while_training.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_04_bert_base/单独训练和单独评估/evaluate_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_05_llm_prompt/deepseek_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_05_llm_prompt/llm_prompt_eval.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_05_llm_prompt/server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_05_llm_prompt/static/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_05_llm_prompt/zhipu_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_06_bert_quantization/bert_DQ.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_06_bert_quantization/bert_classifier_model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_06_bert_quantization/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_06_bert_quantization/dataloader_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_06_bert_quantization/evaluate_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_02_rf/rf_model_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/_02_rf/rf_model_train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +45,20 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Python Stub" />
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform)); sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo, NoAppException&#10;for module in [&quot;main.py&quot;, &quot;wsgi.py&quot;, &quot;app.py&quot;]:&#10;    try: locals().update(ScriptInfo(app_import_path=module, create_app=None).load_app().make_shell_context()); print(&quot;\nFlask App: %s&quot; % app.import_name); break&#10;    except NoAppException: pass" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -41,6 +77,9 @@
     &quot;accountId&quot;: &quot;dd9eba4c-af46-474a-8600-079b7d9bd553&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -53,40 +92,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JavaScript 调试.index.html.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.auto_char_train_model.executor": "Run",
-    "Python.auto_words_train_model.executor": "Run",
-    "Python.char_train_model.executor": "Run",
-    "Python.data_process.executor": "Run",
-    "Python.ft_predict_fun.executor": "Run",
-    "Python.server.executor": "Run",
-    "Python.v3_production.executor": "Run",
-    "Python.words_train_model.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/wangjie/PycharmProjects/TMP_Project/_03_fasttext",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript 调试.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.auto_char_train_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.auto_words_train_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.baseline_rf.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bert_DQ.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bert_classifier_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.char_train_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.config.executor&quot;: &quot;Run&quot;,
+    &quot;Python.data_process.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dataloader_utils.executor&quot;: &quot;Run&quot;,
+    &quot;Python.deepseek_server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.deepseek_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.evaluate_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ft_predict_fun.executor&quot;: &quot;Run&quot;,
+    &quot;Python.rf_predict_fun.executor&quot;: &quot;Run&quot;,
+    &quot;Python.server.executor&quot;: &quot;Run&quot;,
+    &quot;Python.v3_production.executor&quot;: &quot;Run&quot;,
+    &quot;Python.words_train_model.executor&quot;: &quot;Run&quot;,
+    &quot;Python.zhipu_test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;ai.playground.ignore.import.keys.banner.in.settings&quot;: &quot;true&quot;,
+    &quot;dev.sweep.assistant.previousChatsExpanded&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wangjie/PycharmProjects/TMP_Project/_06_bert_quantization&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;sweep.chatMode&quot;: &quot;Agent&quot;,
+    &quot;sweep.selectedModel&quot;: &quot;Auto&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/_06_bert_quantization" />
+      <recent name="$PROJECT_DIR$/_05_llm_prompt" />
+      <recent name="$PROJECT_DIR$/_04_bert_base" />
       <recent name="$PROJECT_DIR$/_03_fasttext" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.server">
-    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/TMP_Project/_03_fasttext/static/index.html" useBuiltInWebServerPort="true">
-      <method v="2" />
-    </configuration>
-    <configuration name="char_train_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonProject" />
+  <component name="RunManager" selected="Python.flask_fun">
+    <configuration name="bert_DQ" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TMP_Project" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -94,13 +147,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_03_fasttext" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_06_bert_quantization" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_03_fasttext/char_train_model.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_06_bert_quantization/bert_DQ.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -109,8 +162,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ft_predict_fun" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonProject" />
+    <configuration name="bert_predict_fun" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TMP_Project" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -118,13 +171,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_03_fasttext" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_06_bert_quantization" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_03_fasttext/ft_predict_fun.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_06_bert_quantization/bert_predict_fun.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -133,8 +186,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonProject" />
+    <configuration name="evaluate_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TMP_Project" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -142,13 +195,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_03_fasttext" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_06_bert_quantization" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_03_fasttext/server.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_06_bert_quantization/evaluate_model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -157,8 +210,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="words_train_model" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonProject" />
+    <configuration name="flask_fun" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TMP_Project" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -166,13 +219,37 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_03_fasttext" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_06_bert_quantization" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_03_fasttext/words_train_model.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_06_bert_quantization/flask_fun.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="zhipu_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TMP_Project" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/_05_llm_prompt" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/_05_llm_prompt/zhipu_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -183,13 +260,21 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.server" />
-        <item itemvalue="JavaScript 调试.index.html" />
-        <item itemvalue="Python.ft_predict_fun" />
-        <item itemvalue="Python.char_train_model" />
-        <item itemvalue="Python.words_train_model" />
+        <item itemvalue="Python.flask_fun" />
+        <item itemvalue="Python.bert_predict_fun" />
+        <item itemvalue="Python.evaluate_model" />
+        <item itemvalue="Python.bert_DQ" />
+        <item itemvalue="Python.zhipu_test" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.32098.74" />
+        <option value="bundled-python-sdk-1cd77e80b48f-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.32098.74" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -206,6 +291,26 @@
       <workItem from="1781514196332" duration="3953000" />
       <workItem from="1781518536959" duration="547000" />
       <workItem from="1781522701915" duration="2968000" />
+      <workItem from="1781535502827" duration="527000" />
+      <workItem from="1781569107835" duration="6858000" />
+      <workItem from="1781578637073" duration="1376000" />
+      <workItem from="1781580767822" duration="292000" />
+      <workItem from="1781581212632" duration="1250000" />
+      <workItem from="1781582479281" duration="508000" />
+      <workItem from="1781595878871" duration="4475000" />
+      <workItem from="1781666836026" duration="622000" />
+      <workItem from="1781684959295" duration="1782000" />
+      <workItem from="1781914599233" duration="2182000" />
+      <workItem from="1781919087247" duration="1223000" />
+      <workItem from="1781921138348" duration="895000" />
+      <workItem from="1781922434863" duration="7339000" />
+      <workItem from="1781938798366" duration="4987000" />
+      <workItem from="1781956219529" duration="805000" />
+      <workItem from="1781957039762" duration="326000" />
+      <workItem from="1781957378527" duration="96000" />
+      <workItem from="1781957486399" duration="3898000" />
+      <workItem from="1781962191270" duration="728000" />
+      <workItem from="1781966245391" duration="2223000" />
     </task>
     <servers />
   </component>
@@ -226,11 +331,21 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/TMP_Project$server.coverage" NAME="server 覆盖结果" MODIFIED="1781523404975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
     <SUITE FILE_PATH="coverage/TMP_Project$data_process.coverage" NAME="data_process 覆盖结果" MODIFIED="1781511622433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
-    <SUITE FILE_PATH="coverage/TMP_Project$ft_predict_fun.coverage" NAME="ft_predict_fun 覆盖结果" MODIFIED="1781518057377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
-    <SUITE FILE_PATH="coverage/TMP_Project$v3_production.coverage" NAME="v3_production 覆盖结果" MODIFIED="1781506643786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/llm-architecture-evolution" />
-    <SUITE FILE_PATH="coverage/TMP_Project$auto_char_train_model.coverage" NAME="auto_char_train_model 覆盖结果" MODIFIED="1781517781702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
+    <SUITE FILE_PATH="coverage/TMP_Project$bert_classifier_model.coverage" NAME="bert_classifier_model 覆盖结果" MODIFIED="1781601892376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_04_bert_base" />
+    <SUITE FILE_PATH="coverage/TMP_Project$zhipu_test.coverage" NAME="zhipu_test 覆盖结果" MODIFIED="1781922461629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_05_llm_prompt" />
+    <SUITE FILE_PATH="coverage/TMP_Project$dataloader_utils.coverage" NAME="dataloader_utils 覆盖结果" MODIFIED="1781581819719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_04_bert_base" />
+    <SUITE FILE_PATH="coverage/TMP_Project$deepseek_server.coverage" NAME="deepseek_server 覆盖结果" MODIFIED="1781927393265" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_05_llm_prompt" />
     <SUITE FILE_PATH="coverage/TMP_Project$char_train_model.coverage" NAME="char_train_model 覆盖结果" MODIFIED="1781517835281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
-    <SUITE FILE_PATH="coverage/TMP_Project$auto_words_train_model.coverage" NAME="auto_words_train_model 覆盖结果" MODIFIED="1781517769708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
+    <SUITE FILE_PATH="coverage/TMP_Project$rf_predict_fun.coverage" NAME="rf_predict_fun 覆盖结果" MODIFIED="1781569246059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_02_rf" />
+    <SUITE FILE_PATH="coverage/TMP_Project$bert_DQ.coverage" NAME="bert_DQ 覆盖结果" MODIFIED="1781967478677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_06_bert_quantization" />
+    <SUITE FILE_PATH="coverage/TMP_Project$ft_predict_fun.coverage" NAME="ft_predict_fun 覆盖结果" MODIFIED="1781569221371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TMP_Project$evaluate_model.coverage" NAME="evaluate_model 覆盖结果" MODIFIED="1781967514772" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_06_bert_quantization" />
+    <SUITE FILE_PATH="coverage/TMP_Project$auto_char_train_model.coverage" NAME="auto_char_train_model 覆盖结果" MODIFIED="1781517781702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
+    <SUITE FILE_PATH="coverage/TMP_Project$v3_production.coverage" NAME="v3_production 覆盖结果" MODIFIED="1781506643786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/llm-architecture-evolution" />
+    <SUITE FILE_PATH="coverage/TMP_Project$deepseek_test.coverage" NAME="deepseek_test 覆盖结果" MODIFIED="1781925504646" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_05_llm_prompt" />
+    <SUITE FILE_PATH="coverage/TMP_Project$baseline_rf.coverage" NAME="baseline_rf 覆盖结果" MODIFIED="1781938809786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/bert-classification" />
+    <SUITE FILE_PATH="coverage/TMP_Project$config.coverage" NAME="config 覆盖结果" MODIFIED="1781579597274" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_04_bert_base" />
     <SUITE FILE_PATH="coverage/TMP_Project$words_train_model.coverage" NAME="words_train_model 覆盖结果" MODIFIED="1781517832494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
+    <SUITE FILE_PATH="coverage/TMP_Project$auto_words_train_model.coverage" NAME="auto_words_train_model 覆盖结果" MODIFIED="1781517769708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/_03_fasttext" />
   </component>
 </project>
